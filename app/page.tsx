@@ -16,12 +16,12 @@ export default function HomePage() {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
+        "https://www.thecocktaildb.com/api/json/v1/1/latest.php"
       );
       const data = await response.json();
       const drinks: Cocktail[] = data.drinks || [];
 
-      const bigDrinks = Array.from({ length: 500 }, () => drinks).flat();
+      const bigDrinks = Array.from({ length: 500 }).flatMap(() => drinks);
       setAllDrinks(bigDrinks);
       setFilteredDrinks(bigDrinks);
     })();
