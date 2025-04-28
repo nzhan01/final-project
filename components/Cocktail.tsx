@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {CocktailType} from "../interfaces/Types.ts"
+import {CocktailType} from "@/types";
 
 const AllDiv = styled.div`
     display: flex;
@@ -27,6 +27,7 @@ const StyledP = styled.p`
     justify-content: center;
     align-content: center;
     text-align: center;
+    color: black;
 `;
 
 export default function Cocktail(props:{data: CocktailType[]}){
@@ -34,7 +35,7 @@ export default function Cocktail(props:{data: CocktailType[]}){
         <>
             {
                 props.data.map((cocktail)=>(
-                    <AllDiv>
+                    <AllDiv key={cocktail.idDrink}>
                         <h1>Drink Generator</h1>
                         <IndividualDiv key={cocktail.idDrink}>
                             <h3>{cocktail.strDrink}</h3>

@@ -1,38 +1,18 @@
 "use client";
+import Cocktail from "../../components/Cocktail";
+import {CocktailType} from "@/types";
 
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-type CocktailType = {
-    idDrink: string;
-    strDrink: string;
-    strDrinkThumb: string;
-    strInstructions: string;
-};
 
 const Card = styled.div`
   background-color: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 350px;
+  width: 50%;
   padding: 20px;
   margin: 50px auto;
   text-align: center;
-`;
-
-const DrinkImage = styled.img`
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 20px;
-`;
-
-const DrinkTitle = styled.h2`
-  margin: 10px 0;
-`;
-
-const Instructions = styled.p`
-  font-size: 14px;
-  color: #555;
 `;
 
 const StyledButton = styled.button`
@@ -73,9 +53,7 @@ export default function DrinkGenerator() {
             <h1>Random Drink Generator</h1>
             {cocktail ? (
                 <div>
-                    <DrinkTitle>{cocktail.strDrink}</DrinkTitle>
-                    <DrinkImage src={cocktail.strDrinkThumb} alt={cocktail.strDrink} width={200} />
-                    <Instructions>{cocktail.strInstructions}</Instructions>
+                    <Cocktail data={[cocktail]}/>
                 </div>
             ) : (
                 <p>Loading...</p>
