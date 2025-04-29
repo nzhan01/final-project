@@ -40,6 +40,7 @@ const StyledImage = styled.img`
     border-radius: 10px;
     border: 3px solid #FAD59A;
     width: 50%; 
+    margin-top: 3%; 
 `
 
 export default function Cocktail(props:{data: CocktailType[]}){
@@ -54,7 +55,68 @@ export default function Cocktail(props:{data: CocktailType[]}){
                             <StyledP> <strong> Alcoholic:</strong>  {cocktail.strAlcoholic}</StyledP>
                             <StyledP> <strong> Glass:</strong>  {cocktail.strGlass}</StyledP>
 
-
+                            <StyledP><strong> Ingredients: </strong> </StyledP>
+                            {cocktail.strIngredient1 && (
+                                <div>
+                                    <StyledP>1. {cocktail.strIngredient1}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient2 && (
+                                <div>
+                                    <StyledP>2. {cocktail.strIngredient2}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient3 && (
+                                <div>
+                                    <StyledP>3. {cocktail.strIngredient3}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient4 && (
+                                <div>
+                                    <StyledP>4. {cocktail.strIngredient4}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient5 && (
+                                <div>
+                                    <StyledP>5. {cocktail.strIngredient5}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient6 && (
+                                <div>
+                                    <StyledP>6. {cocktail.strIngredient6}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient7 && (
+                                <div>
+                                    <StyledP>7. {cocktail.strIngredient7}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient8 && (
+                                <div>
+                                    <StyledP>8. {cocktail.strIngredient8}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient9 && (
+                                <div>
+                                    <StyledP>9. {cocktail.strIngredient9}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient10 && (
+                                <div>
+                                    <StyledP>10. {cocktail.strIngredient10}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient11 && (
+                                <div>
+                                    <StyledP>11. {cocktail.strIngredient11}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient12 && (
+                                <div>
+                                    <StyledP>12. {cocktail.strIngredient12}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient13 && (
+                                <div>
+                                    <StyledP>13. {cocktail.strIngredient13}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient14 && (
+                                <div>
+                                    <StyledP>14. {cocktail.strIngredient14}</StyledP>
+                                </div> )}
+                            {cocktail.strIngredient15 && (
+                                <div>
+                                    <StyledP>15. {cocktail.strIngredient15}</StyledP>
+                                </div> )}
+                            <p>-------------------</p>
                             <StyledP><strong> Instructions: </strong> </StyledP>
                             <StyledP> {cocktail.strInstructions}</StyledP>
                             {cocktail.strInstructionsES && (
