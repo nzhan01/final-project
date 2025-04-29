@@ -1,3 +1,7 @@
+// Author: Mai Chu
+// Description: This is the official home search page for filtering and 
+// displaying cocktails from the CocktailDB API. It has a 
+// search input, filtered results that's dynamic, styled layout, and "load more" button.
 "use client";
 
 // useTransition as hook to make 
@@ -119,7 +123,7 @@ export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(5);
   const [isPending, startTransition] = useTransition();
-
+  // initial fetch
   useEffect(() => {
     fetchAllDrinks();
   }, []);
@@ -133,7 +137,7 @@ export default function SearchPage() {
     setAllDrinks(shuffledDrinks);
     setFilteredDrinks(shuffledDrinks);
   }
-
+  // handle input change, debounce with transition for UX 
   function handleChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const nextQuery = ev.target.value;
     setQuery(nextQuery);
@@ -160,7 +164,7 @@ export default function SearchPage() {
     setVisibleCount((prev) => prev + 5); // load 5 more options if available (type 'go' on search bar to test)
   }
 
-  // filtering out any null/undefined drinks
+  // filtering out any null drinks
   const visibleDrinks = filteredDrinks.filter(Boolean);
 
   return (
