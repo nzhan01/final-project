@@ -42,16 +42,22 @@ export default function SearchPage() {
     startTransition(doFilter);
   }
 
-  const listItems = (query ? filteredDrinks.slice(0, 1) : filteredDrinks.slice(0, 9)).map((drink) => (
-    <li key={drink.idDrink} className="drink-card">
-      <img
-        src={drink.strDrinkThumb}
-        alt={drink.strDrink}
-        className="drink-img"
-      />
-      <h3 className="drink-name">{drink.strDrink}</h3>
-    </li>
-  ));
+  const visibleDrinks = query
+    ? filteredDrinks.slice(0, 1)
+    : filteredDrinks.slice(0, 9);
+
+  const listItems = visibleDrinks.map((drink) => 
+    drink && (
+      <li key={drink.idDrink} className="drink-card">
+        <img
+          src={drink.strDrinkThumb}
+          alt={drink.strDrink}
+          className="drink-img"
+        />
+        <h3 className="drink-name">{drink.strDrink}</h3>
+      </li>
+    )
+  );
 
   return (
     <main className="main">
@@ -70,6 +76,7 @@ export default function SearchPage() {
 
       <style>{`
         .main {
+          font-family: "EB Garamond";
           max-width: 1000px;
           margin: 0 auto;
           padding: 40px 20px;
@@ -89,6 +96,7 @@ export default function SearchPage() {
         }
 
         .search-input {
+          font-family: "EB Garamond";
           padding: 12px 20px;
           width: 100%;
           max-width: 400px;
