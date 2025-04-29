@@ -13,7 +13,6 @@ import styled from "styled-components";
 //Styled Components!
 
 const StyledContainer = styled.div`
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +38,7 @@ const StyledDrinkCard = styled.div`
     align-items: center;
     gap: 20px;
     transition: transform 0.2s ease;
-    width: 40%;
+    width: 80%;
 `
 
 const StyledTitle = styled.h1`
@@ -49,8 +48,7 @@ const StyledTitle = styled.h1`
     margin-bottom: 30px;`
 
 const StyledDrinkTitle = styled.h3`
-    font-size: 1.5rem;
-    font-weight: bold;
+    font: calc(5px + 2vw) "lora";
     color: #5c3d00;`
 
 const StyledDrinkList = styled.div`
@@ -107,11 +105,8 @@ export default function NonAlcoholic() {
                 {data.slice(0,20).map((drink) => (
                     <StyledDrinkCard key={drink.idDrink}>
                         <StyledImage src={drink.strDrinkThumb} alt={drink.strDrink} width="100" />
-
                         <StyledDrinkTitle>{drink.strDrink}</StyledDrinkTitle>
-
                     </StyledDrinkCard>
-
                 ))}
             </StyledDrinkList>
 
