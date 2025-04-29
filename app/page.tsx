@@ -15,49 +15,57 @@ export default function SearchPage() {
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a"
-      );
-      const data = await response.json();
-      const drinks: Cocktail[] = data.drinks || [];
-      const bigDrinks = Array.from({ length: 500 }).flatMap(() => drinks);
-      setAllDrinks(bigDrinks);
-      setFilteredDrinks(bigDrinks);
-    })();
+    fetchAllDrinks();
   }, []);
+
+  async function fetchAllDrinks() {
+    const response = await fetch(
+      "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
+    );
+    const data = await response.json();
+    const drinks: Cocktail[] = data.drinks || [];
+
+    // Shuffle randomly
+    const shuffledDrinks = drinks.sort(() => 0.5 - Math.random());
+
+    setAllDrinks(shuffledDrinks);
+    setFilteredDrinks(shuffledDrinks);
+  }
 
   function handleChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const nextQuery = ev.target.value;
     setQuery(nextQuery);
 
-    const doFilter = () => {
-      setFilteredDrinks(
-        allDrinks.filter((drink) =>
-          drink && drink.strDrink && drink.strDrink.toLowerCase().includes(nextQuery.toLowerCase())
-        )
+    const doFilter = async () => {
+      if (nextQuery.trim() === "") {
+        setFilteredDrinks(allDrinks);
+        return;
+      }
+
+      const response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${nextQuery}`
       );
+      const data = await response.json();
+      const drinks: Cocktail[] = data.drinks || [];
+
+      setFilteredDrinks(drinks);
     };
 
     startTransition(doFilter);
   }
 
-  const visibleDrinks = query
-    ? filteredDrinks.slice(0, 1)
-    : filteredDrinks.slice(0, 9);
+  const visibleDrinks = filteredDrinks.filter(Boolean);
 
-  const listItems = visibleDrinks.map((drink) => 
-    drink && (
-      <li key={drink.idDrink} className="drink-card">
-        <img
-          src={drink.strDrinkThumb}
-          alt={drink.strDrink}
-          className="drink-img"
-        />
-        <h3 className="drink-name">{drink.strDrink}</h3>
-      </li>
-    )
-  );
+  const listItems = visibleDrinks.slice(0, 20).map((drink, index) => (
+    <li key={`${drink.idDrink}-${index}`} className="drink-card">
+      <img
+        src={drink.strDrinkThumb}
+        alt={drink.strDrink}
+        className="drink-img"
+      />
+      <h3 className="drink-name">{drink.strDrink}</h3>
+    </li>
+  ));
 
   return (
     <main className="main">
