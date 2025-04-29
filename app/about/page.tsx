@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import styled from "styled-components";
 
@@ -94,6 +95,7 @@ const StyledButton = styled.button`
 `;
 
 export default function AboutPage() {
+    const router = useRouter();
     return (
         <PageWrapper>
             <Title> About Our Project</Title>
@@ -133,7 +135,9 @@ export default function AboutPage() {
                 </DrinkCard>
             </DrinksGrid>
 
-            <StyledButton>Back to Home</StyledButton>
+            <StyledButton onClick={() => router.push("/")}>
+                Back to Home
+            </StyledButton>
         </PageWrapper>
     );
 }
