@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";  
 
 type Cocktail = {
   idDrink: string;
@@ -41,24 +41,18 @@ export default function HomePage() {
         )
       );
     };
-  
-    if (useTrans) {
-      startTransition(doFilter);
-    } else {
-      doFilter();
-    }
-  }
-  
-  const listItems = filteredDrinks.slice(0, 20).map((drink) => (
-    <li key={drink.idDrink} className="flex items-center gap-4 p-2">
-      <img
-        src={drink.strDrinkThumb}
-        alt={drink.strDrink}
-        className="w-16 h-16 rounded-md object-cover"
-      />
-      <span>{drink.strDrink}</span>
-    </li>
-  ));
+
+    const listItems = (query ? filteredDrinks.slice(0, 1) : filteredDrinks.slice(0, 9)).map((drink) => (
+      <li key={drink.idDrink} className="drink-card">
+        <img
+          src={drink.strDrinkThumb}
+          alt={drink.strDrink}
+          className="drink-img"
+        />
+        <h3 className="drink-name">{drink.strDrink}</h3>
+      </li>
+    ));
+    
   
   return (
     <main className="main">
@@ -69,13 +63,16 @@ export default function HomePage() {
           className="input mb-4"
           placeholder="Search for a drink."
           value={query}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, false)} 
         />
         <p className="mb-2">
           {filteredDrinks.length} / {allDrinks.length}
         </p>
-        <ul className="list">{listItems}</ul>
+        <ul className="drink-list">
+          {listItems}
+        </ul>
       </div>
     </main>
   );
+}
 }
