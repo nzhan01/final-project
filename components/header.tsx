@@ -1,5 +1,5 @@
 "use client"
-import Link from "next/link";
+//import Link from "next/link";
 import styled from "styled-components";
 
 const StyledLink = styled.a`
@@ -42,6 +42,10 @@ export default function Header() {
                 <StyledLink href="/random">
                     Random
                 </StyledLink>
+                <StyledLink href="/nonalcoholic">
+                    Non-Alcoholic
+                </StyledLink>
+
                 <StyledLink href="/about">
                     About
                 </StyledLink>

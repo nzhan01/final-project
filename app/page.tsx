@@ -25,7 +25,7 @@ export default function SearchPage() {
     );
     const data = await response.json();
   
-    let drinks: Cocktail[] = Array.isArray(data.drinks) ? data.drinks : [];
+    const drinks: Cocktail[] = Array.isArray(data.drinks) ? data.drinks : [];
   
     const shuffledDrinks = drinks.length > 0
       ? [...drinks].sort(() => 0.5 - Math.random())
