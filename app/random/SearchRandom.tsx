@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
-  background-color: #f9f9f9;
+  background-color: #FAD59A;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   width: 50%;
@@ -17,17 +17,17 @@ const Card = styled.div`
 
 const StyledButton = styled.button`
   margin-top: 20px;
+  font: calc(5px + 1vw) "lora";  
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #E9A319;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   
   &:hover {
-    background-color: #45a049;
+    background-color: #A86523;
   }
 `;
 
@@ -50,7 +50,6 @@ export default function DrinkGenerator() {
 
     return (
         <Card>
-            <h1>Random Drink Generator</h1>
             {cocktail ? (
                 <div>
                     <Cocktail data={[cocktail]}/>

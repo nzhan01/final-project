@@ -1,26 +1,30 @@
 import styled from "styled-components";
 import {CocktailType} from "@/types";
 
-const AllDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+const StyledHeader = styled.h1`
+    color: #E9A319; 
+    font: calc(5px + 3vw) "lora";
+    font-weight: bold; 
+    padding-bottom: 3%; 
+`;
+
+const StyledHeader1 = styled.h1`
+    font: calc(5px + 2.5vw) "lora";
+    padding-bottom: 2%; 
 `;
 
 const IndividualDiv = styled.div`
     border: 5px solid floralwhite;
-    padding: 3%;
-    margin: 1%;
-    width: 85%;
-    height: 80%;
+    border-radius: 10px;
+    padding: 5%; 
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: whitesmoke;
+    background-color: white;
+    
 `;
 
 const StyledP = styled.p`
@@ -28,26 +32,43 @@ const StyledP = styled.p`
     align-content: center;
     text-align: center;
     color: black;
+    padding-bottom: 2.5%;
+    font: calc(3px + 1vw) "lora";
 `;
+
+const StyledImage = styled.img`
+    border-radius: 10px;
+    border: 3px solid #FAD59A;
+    width: 50%; 
+`
 
 export default function Cocktail(props:{data: CocktailType[]}){
     return(
         <>
             {
                 props.data.map((cocktail)=>(
-                    <AllDiv key={cocktail.idDrink}>
-                        <h1>Drink Generator</h1>
                         <IndividualDiv key={cocktail.idDrink}>
-                            <h3>{cocktail.strDrink}</h3>
+                            <StyledHeader>Drink Generator</StyledHeader>
+                            <StyledHeader1>{cocktail.strDrink}</StyledHeader1>
                             <StyledP> <strong> Category:</strong> {cocktail.strCategory}</StyledP>
                             <StyledP> <strong> Alcoholic:</strong>  {cocktail.strAlcoholic}</StyledP>
                             <StyledP> <strong> Glass:</strong>  {cocktail.strGlass}</StyledP>
-                            <StyledP> <strong> Instructions: </strong> {cocktail.strInstructions}</StyledP>
-                            <StyledP> <strong> Instructions: </strong> {cocktail.strInstructionsES}</StyledP>
-                            <StyledP> <strong> Instructions: </strong> {cocktail.strInstructionsFR}</StyledP>
-                            <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} width="200" height="200" />
+
+
+                            <StyledP><strong> Instructions: </strong> </StyledP>
+                            <StyledP> {cocktail.strInstructions}</StyledP>
+                            {cocktail.strInstructionsES && (
+                                <div>
+                                <StyledP><strong> Instrucciones: </strong> </StyledP>
+                                <StyledP>{cocktail.strInstructionsES}</StyledP>
+                            </div> )}
+                            {cocktail.strInstructionsFR && (
+                                <div>
+                                <StyledP><strong> Les Instructions: </strong> </StyledP>
+                                <StyledP> {cocktail.strInstructionsFR}</StyledP>
+                            </div> )}
+                            <StyledImage src={cocktail.strDrinkThumb} alt={cocktail.strDrink} width="200" height="200" />
                         </IndividualDiv>
-                    </AllDiv>
                 ))
             }
         </>
