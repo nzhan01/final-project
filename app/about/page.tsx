@@ -1,3 +1,6 @@
+// Author: Shanika Paul
+// AboutPage.tsx -- Displays a little introduction to the group and our API with drink instructions fetched from CocktailDB with the groups's favorite drinks!
+
 "use client";
 // logic is fully client side
 
