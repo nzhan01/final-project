@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const StyledTitle = styled.h2`
+const StyledTitle = styled.h1`
     color: black;
     background-clip: text;
     padding: 2%; 
