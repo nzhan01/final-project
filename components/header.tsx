@@ -2,20 +2,22 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const StyledTitle = styled.h1`
-    color: black;
-    background-clip: text;
-    padding: 2%; 
-    text-align: center;
-    font-weight: bolder;
-    font: calc(7px + 3vw) "lora";
-`
 const StyledLink = styled.a`
     font: calc(3px + 1.3vw) "lora";
     margin: 0 2%; 
     &:hover {
         text-decoration: underline;
     }
+`;
+
+const StyledH1 = styled.h1`
+    color: black;
+    background-clip: text;
+    padding: 2%;
+    font-weight: bolder;
+    font: calc(7px + 3vw) "lora";
+    display: flex; 
+    justify-content: center;
 `;
 
 const StyledNav = styled.nav`
@@ -30,9 +32,9 @@ const StyledHeader = styled.header`
 export default function Header() {
     return(
         <StyledHeader>
-            <Link href ="/">
-                <StyledTitle>Date Night Drink Generator</StyledTitle>
-            </Link>
+            <StyledH1>
+                Date Night Drink Generator
+            </StyledH1>
             <StyledNav>
                 <StyledLink href ="/">
                     Search
