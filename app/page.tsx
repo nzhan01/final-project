@@ -16,7 +16,7 @@ export default function HomePage() {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        "https://www.thecocktaildb.com/api/json/v1/1/latest.php"
+        "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a"
       );
       const data = await response.json();
       const drinks: Cocktail[] = data.drinks || [];
@@ -27,17 +27,28 @@ export default function HomePage() {
     })();
   }, []);
 
-  function handleChange(ev: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(
+    ev: React.ChangeEvent<HTMLInputElement>,
+    useTrans: boolean
+  ) {
     const nextQuery = ev.target.value;
     setQuery(nextQuery);
-
-    setFilteredDrinks(
-      allDrinks.filter((drink) =>
-        drink.strDrink.toLowerCase().includes(nextQuery.toLowerCase())
-      )
-    );
+  
+    const doFilter = () => {
+      setFilteredDrinks(
+        allDrinks.filter((drink) =>
+          drink && drink.strDrink && drink.strDrink.toLowerCase().includes(nextQuery.toLowerCase())
+        )
+      );
+    };
+  
+    if (useTrans) {
+      startTransition(doFilter);
+    } else {
+      doFilter();
+    }
   }
-
+  
   const listItems = filteredDrinks.slice(0, 20).map((drink) => (
     <li key={drink.idDrink} className="flex items-center gap-4 p-2">
       <img
@@ -48,15 +59,15 @@ export default function HomePage() {
       <span>{drink.strDrink}</span>
     </li>
   ));
-
+  
   return (
     <main className="main">
       <h1 className="text-3xl font-bold mb-6">Filter Cocktails</h1>
-
+  
       <div className="section">
         <input
           className="input mb-4"
-          placeholder="Search for a drink…"
+          placeholder="Search for a drink."
           value={query}
           onChange={handleChange}
         />
@@ -68,4 +79,3 @@ export default function HomePage() {
     </main>
   );
 }
-
