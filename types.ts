@@ -1,3 +1,7 @@
+// Author: Annika Gupta
+// types.ts: CocktailType defines the expected structure of a cocktail object retrieved from the API.
+// Each property corresponds to a specific piece of cocktail data, including metadata, instructions, ingredients, and an image.
+
 export type CocktailType = {
     idDrink: string;
     strDrink: string;
