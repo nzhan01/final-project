@@ -1,8 +1,11 @@
 "use client";
+// logic is fully client side
 
 import { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
+
+// STYLED - COMPONENTS
 
 const PageWrapper = styled.div`
     display: flex;
@@ -102,13 +105,13 @@ const StyledButton = styled.button`
     background-color: #cc8c14;
   }
 `;
-
+// TYPE DEFINITIONS
 type Drink = {
     id: string;
     name: string;
     image: string;
 };
-
+// this is where we define favoriteDrinks with the name, ID, and images that are soon to be rendered
 const favoriteDrinks: Drink[] = [
     { id: "17196", name: "Cosmopolitan", image: "https://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg" },
     { id: "17212", name: "Espresso Martini", image: "https://www.thecocktaildb.com/images/media/drink/n0sx531504372951.jpg" },
@@ -116,12 +119,20 @@ const favoriteDrinks: Drink[] = [
     { id: "17193", name: "French 75", image: "https://www.thecocktaildb.com/images/media/drink/rptuxy1472669372.jpg" },
     { id: "11690", name: "Mai Tai", image: "https://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg" },
 ];
+// ABOUT PAGE COMPONENTS
 
+/* React Router was used for navigation; it maintains a state object called instructions which stores cocktail instructions
+ indexed by ID number
+ use router allows you to send the user back to the desired page for our back to home button*/
 export default function AboutPage() {
     const router = useRouter();
+    /* the useState hook we learned in class
+    * we are using it to store instructions for each drink, starts off initially as empty */
     const [instructions, setInstructions] = useState<{ [key: string]: string }>({});
-
+    /* function is triggered whenever someone clicks on a drink and the id is the unique ID used in the API */
     const handleDrinkClick = async (id: string) => {
+        /* whe the instructions have already been fetched, this removes them from the state to toggle it off
+        * and the instructions are hidden now after another click*/
         if (instructions[id]) {
             // If already fetched, toggle it
             setInstructions((prev) => {
@@ -133,9 +144,15 @@ export default function AboutPage() {
         }
 
         try {
+            /* this is the GET request to the cocktailDB API and fetches cocktail w specific id*/
             const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
             const data = await response.json();
+            /* this line access the english instructions after we get the full JSON result from the line above of an array of drink objects from the API
+            * it accesses the first and only drink in the array and if there isn't any instructions then ... */
             const drinkInstructions = data.drinks?.[0]?.strInstructions || "No instructions available.";
+            /* function from useState that updates my instruction state
+            * copy all the previous instructions with ...prev and then add new drinks instructions under its ID key
+            * when someone clicks multiple drinks all the fetched instructions stay saved and dont dissapear*/
             setInstructions((prev) => ({
                 ...prev,
                 [id]: drinkInstructions,
@@ -144,7 +161,7 @@ export default function AboutPage() {
             console.error("Failed to fetch drink instructions:", error);
         }
     };
-
+// PAGE LAYOUT
     return (
         <PageWrapper>
             <Title> About Our Project</Title>
@@ -158,6 +175,7 @@ export default function AboutPage() {
             <SubTitle> Our Favorite Drinks</SubTitle>
 
             <DrinksGrid>
+                {/*this loops through favoriteDrinks and for each drink displays the image, name, and adds a click handler so that instructions are fetched and shown */}
                 {favoriteDrinks.map((drink) => (
                     <DrinkCard key={drink.id} onClick={() => handleDrinkClick(drink.id)}>
                         <DrinkImage src={drink.image} alt={drink.name} />
@@ -166,7 +184,7 @@ export default function AboutPage() {
                     </DrinkCard>
                 ))}
             </DrinksGrid>
-
+            {/* this button uses the router hook from the beginning to send the user to the homepage "/" when click*/}
             <StyledButton onClick={() => router.push("/")}>
                 Back to Home
             </StyledButton>
