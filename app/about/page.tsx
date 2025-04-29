@@ -1,13 +1,14 @@
 "use client";
-import { useRouter } from "next/navigation";
 
+import { useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
 
 const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
+    background: linear-gradient(to bottom, #fff7e6, #fad59a);
     min-height: 100vh;
     padding: 2rem;
     text-align: center;
@@ -58,6 +59,7 @@ const DrinkCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 
     &:hover {
         transform: scale(1.05);
@@ -78,61 +80,91 @@ const DrinkName = styled.p`
     color: #333;
 `;
 
-const StyledButton = styled.button`
-    margin-top: 3rem;
-    font: calc(5px + 1vw) "Lora", serif;
-    padding: 10px 20px;
-    background-color: #e9a319;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #cc8c14;
-    }
+const Instructions = styled.p`
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #444;
+    font-family: "Lora", serif;
 `;
+
+const StyledButton = styled.button`
+  margin-top: 3rem;
+  font: calc(5px + 1vw) "Lora", serif;
+  padding: 10px 20px;
+  background-color: #e9a319;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #cc8c14;
+  }
+`;
+
+type Drink = {
+    id: string;
+    name: string;
+    image: string;
+};
+
+const favoriteDrinks: Drink[] = [
+    { id: "17196", name: "Cosmopolitan", image: "https://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg" },
+    { id: "17212", name: "Espresso Martini", image: "https://www.thecocktaildb.com/images/media/drink/n0sx531504372951.jpg" },
+    { id: "12156", name: "Screwdriver", image: "https://www.thecocktaildb.com/images/media/drink/8xnyke1504352207.jpg" },
+    { id: "17193", name: "French 75", image: "https://www.thecocktaildb.com/images/media/drink/rptuxy1472669372.jpg" },
+    { id: "11690", name: "Mai Tai", image: "https://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg" },
+];
 
 export default function AboutPage() {
     const router = useRouter();
+    const [instructions, setInstructions] = useState<{ [key: string]: string }>({});
+
+    const handleDrinkClick = async (id: string) => {
+        if (instructions[id]) {
+            // If already fetched, toggle it
+            setInstructions((prev) => {
+                const updated = { ...prev };
+                delete updated[id];
+                return updated;
+            });
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+            const data = await response.json();
+            const drinkInstructions = data.drinks?.[0]?.strInstructions || "No instructions available.";
+            setInstructions((prev) => ({
+                ...prev,
+                [id]: drinkInstructions,
+            }));
+        } catch (error) {
+            console.error("Failed to fetch drink instructions:", error);
+        }
+    };
+
     return (
         <PageWrapper>
-            <Title> About Our Project</Title>
+            <Title>🍹 About Our Project</Title>
 
             <Section>
-                <p>Welcome to our CS391 Final Project! We created a Date Night Cocktail Generator and Search app that lets you discover new drinks or find your favorite ones.</p>
+                <p>Welcome to our CS391 Final Project! We created a fun and interactive Cocktail Generator and Search app that lets you discover new drinks or find your favorite ones.</p>
                 <p>Every cocktail includes instructions in English, Spanish, and French (when available), making it accessible for a global audience.</p>
-                <p>Our project uses the <Highlight>Cocktail DB API</Highlight>, which provides all the recipes and images you see throughout the site.</p>
+                <p>Our project is powered by the free and publicly available <Highlight>Cocktail DB API</Highlight>, which provides all the recipes and images you see throughout the site.</p>
             </Section>
 
-            <SubTitle> Our Favorite Drinks</SubTitle>
+            <SubTitle>🍸 Our Favorite Drinks</SubTitle>
 
             <DrinksGrid>
-                <DrinkCard>
-                    <DrinkImage src="https://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg" alt="Cosmopolitan" />
-                    <DrinkName><strong>Nicholas:</strong> Cosmopolitan</DrinkName>
-                </DrinkCard>
-
-                <DrinkCard>
-                    <DrinkImage src="https://www.thecocktaildb.com/images/media/drink/n0sx531504372951.jpg" alt="Espresso Martini" />
-                    <DrinkName><strong>Annika:</strong> Espresso Martini</DrinkName>
-                </DrinkCard>
-
-                <DrinkCard>
-                    <DrinkImage src="https://www.thecocktaildb.com/images/media/drink/8xnyke1504352207.jpg" alt="Screwdriver" />
-                    <DrinkName><strong>Cindy:</strong> Screwdriver</DrinkName>
-                </DrinkCard>
-
-                <DrinkCard>
-                    <DrinkImage src="https://www.thecocktaildb.com/images/media/drink/rptuxy1472669372.jpg" alt="French 75" />
-                    <DrinkName><strong>Mai:</strong> French 75</DrinkName>
-                </DrinkCard>
-
-                <DrinkCard>
-                    <DrinkImage src="https://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg" alt="Mai Tai" />
-                    <DrinkName><strong>Shanika:</strong> Mai Tai</DrinkName>
-                </DrinkCard>
+                {favoriteDrinks.map((drink) => (
+                    <DrinkCard key={drink.id} onClick={() => handleDrinkClick(drink.id)}>
+                        <DrinkImage src={drink.image} alt={drink.name} />
+                        <DrinkName><strong>{drink.name}</strong></DrinkName>
+                        {instructions[drink.id] && <Instructions>{instructions[drink.id]}</Instructions>}
+                    </DrinkCard>
+                ))}
             </DrinksGrid>
 
             <StyledButton onClick={() => router.push("/")}>
@@ -141,3 +173,4 @@ export default function AboutPage() {
         </PageWrapper>
     );
 }
+
