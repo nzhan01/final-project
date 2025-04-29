@@ -2,7 +2,6 @@
 import {useEffect, useState} from "react";
 import styled from "styled-components";
 
-
 const StyledContainer = styled.div`
 
     display: flex;
@@ -10,15 +9,11 @@ const StyledContainer = styled.div`
     align-items: center;
 `
 
-
-
 type cocktail = {
     idDrink: string;
     strDrink: string;
     strDrinkThumb: string;
 };
-
-
 
 export default function NonAlcoholic() {
     const[data, setData] = useState<cocktail[]>([]);
@@ -51,6 +46,4 @@ export default function NonAlcoholic() {
         </StyledContainer>
 
     )
-
-
 }
