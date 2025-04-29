@@ -12,6 +12,7 @@ export default function SearchPage() {
   const [allDrinks, setAllDrinks] = useState<Cocktail[]>([]);
   const [filteredDrinks, setFilteredDrinks] = useState<Cocktail[]>([]);
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(5); // 👈 NEW STATE
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -26,7 +27,6 @@ export default function SearchPage() {
   
     let drinks: Cocktail[] = Array.isArray(data.drinks) ? data.drinks : [];
   
-    // Shuffle only if drinks is not empty
     const shuffledDrinks = drinks.length > 0
       ? [...drinks].sort(() => 0.5 - Math.random())
       : [];
@@ -38,6 +38,7 @@ export default function SearchPage() {
   function handleChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const nextQuery = ev.target.value;
     setQuery(nextQuery);
+    setVisibleCount(5); // 👈 Reset back to 5 when searching
 
     const doFilter = async () => {
       if (nextQuery.trim() === "") {
@@ -57,9 +58,13 @@ export default function SearchPage() {
     startTransition(doFilter);
   }
 
+  function handleLoadMore() {
+    setVisibleCount((prev) => prev + 5); // 👈 Increase by 5 each click
+  }
+
   const visibleDrinks = filteredDrinks.filter(Boolean);
 
-  const listItems = visibleDrinks.slice(0, 20).map((drink, index) => (
+  const listItems = visibleDrinks.slice(0, visibleCount).map((drink, index) => (
     <li key={`${drink.idDrink}-${index}`} className="drink-card">
       <img
         src={drink.strDrinkThumb}
@@ -83,6 +88,11 @@ export default function SearchPage() {
         />
         {isPending && <p className="loading-text">Loading...</p>}
         <ul className="drink-list">{listItems}</ul>
+        {visibleCount < visibleDrinks.length && (
+          <button className="load-more-btn" onClick={handleLoadMore}>
+            Load 5 More
+          </button>
+        )}
       </div>
 
       <style>{`
@@ -160,6 +170,22 @@ export default function SearchPage() {
           font-size: 1.5rem;
           font-weight: bold;
           color: #5c3d00;
+        }
+
+        .load-more-btn {
+          margin-top: 20px;
+          padding: 10px 20px;
+          background-color: #f4c27b;
+          border: none;
+          border-radius: 8px;
+          font-family: "EB Garamond";
+          font-size: 1.2rem;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+        }
+
+        .load-more-btn:hover {
+          background-color: #e0a84c;
         }
 
         @media (max-width: 600px) {
