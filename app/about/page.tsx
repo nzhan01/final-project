@@ -4,94 +4,94 @@ import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: white;
-  min-height: 100vh;
-  padding: 2rem;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #e9a319;
-  font-family: "Lora", serif;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #e9a319;
+    font-family: "Lora", serif;
 `;
 
 const Section = styled.div`
-  max-width: 700px;
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 4rem;
-  line-height: 1.6;
-  font-family: "Lora", serif;
+    max-width: 700px;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 4rem;
+    line-height: 1.6;
+    font-family: "Lora", serif;
 `;
 
 const Highlight = styled.span`
-  font-weight: bold;
-  color: #e9a319;
+    font-weight: bold;
+    color: #e9a319;
 `;
 
 const SubTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  color: #e9a319;
-  font-family: "Lora", serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #e9a319;
+    font-family: "Lora", serif;
 `;
 
 const DrinksGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
 `;
 
 const DrinkCard = styled.div`
-  background-color: #fad59a;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    background-color: #fad59a;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  &:hover {
-    transform: scale(1.05);
-  }
+    &:hover {
+        transform: scale(1.05);
+    }
 `;
 
 const DrinkImage = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 12px;
-  object-fit: cover;
-  margin-bottom: 1rem;
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 1rem;
 `;
 
 const DrinkName = styled.p`
-  font-size: 1.2rem;
-  font-family: "Lora", serif;
-  color: #333;
+    font-size: 1.2rem;
+    font-family: "Lora", serif;
+    color: #333;
 `;
 
 const StyledButton = styled.button`
-  margin-top: 3rem;
-  font: calc(5px + 1vw) "Lora", serif;
-  padding: 10px 20px;
-  background-color: #e9a319;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    margin-top: 3rem;
+    font: calc(5px + 1vw) "Lora", serif;
+    padding: 10px 20px;
+    background-color: #e9a319;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-  &:hover {
-    background-color: #cc8c14;
-  }
+    &:hover {
+        background-color: #cc8c14;
+    }
 `;
 
 export default function AboutPage() {
