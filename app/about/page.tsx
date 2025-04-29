@@ -8,7 +8,7 @@ const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to bottom, #fff7e6, #fad59a);
+    background: white;
     min-height: 100vh;
     padding: 2rem;
     text-align: center;
@@ -147,15 +147,15 @@ export default function AboutPage() {
 
     return (
         <PageWrapper>
-            <Title>🍹 About Our Project</Title>
+            <Title> About Our Project</Title>
 
             <Section>
-                <p>Welcome to our CS391 Final Project! We created a fun and interactive Cocktail Generator and Search app that lets you discover new drinks or find your favorite ones.</p>
-                <p>Every cocktail includes instructions in English, Spanish, and French (when available), making it accessible for a global audience.</p>
-                <p>Our project is powered by the free and publicly available <Highlight>Cocktail DB API</Highlight>, which provides all the recipes and images you see throughout the site.</p>
+                <p>Welcome to our CS391 Final Project! We created a Cocktail Generator and Search app that lets you discover new drinks.</p>
+                <p>Every cocktail includes instructions in English, Spanish, and French (when available).</p>
+                <p>Our project is powered by the free  <Highlight>Cocktail DB API</Highlight></p>
             </Section>
 
-            <SubTitle>🍸 Our Favorite Drinks</SubTitle>
+            <SubTitle> Our Favorite Drinks</SubTitle>
 
             <DrinksGrid>
                 {favoriteDrinks.map((drink) => (
