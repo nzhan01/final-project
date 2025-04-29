@@ -1,41 +1,49 @@
 "use client"
 import Link from "next/link";
-//background-image: linear-gradient(to top,  #D62828, #F77F00,#FCBF49,#EAE2B7
-
-
-
 import styled from "styled-components";
 
-//https://stackoverflow.com/questions/8384751/css-text-gradient
 const StyledTitle = styled.h2`
-    
-    background-image: linear-gradient(to top,  #D62828, #F77F00,#FCBF49);
-    color: transparent;
+    color: black;
     background-clip: text;
-    padding: 0.5vh;
-    font-size: calc(15px + 2vh);
-    font-weight: bold;
-    
+    padding: 2%; 
+    text-align: center;
+    font-weight: bolder;
+    font: calc(7px + 3vw) "lora";
 `
-export default function Header() {
-    const linkStyling = " p-2 m-5 text-2xl hover:underline"
-    return(
-        <header className="flex justify-between items-center h-20 p-2">
-            <Link href ="/">
-                <StyledTitle>CS391 Final Project Cocktail App</StyledTitle>
-            </Link>
+const StyledLink = styled.a`
+    font: calc(3px + 1.3vw) "lora";
+    margin: 0 2%; 
+    &:hover {
+        text-decoration: underline;
+    }
+`;
 
-            <nav>
-                <Link href ="/" className ={linkStyling}>
+const StyledNav = styled.nav`
+    text-align: center;
+    padding-bottom: 1%; 
+`
+
+const StyledHeader = styled.header`
+    background-color: #FAD59A; 
+`;
+
+export default function Header() {
+    return(
+        <StyledHeader>
+            <Link href ="/">
+                <StyledTitle>Date Night Drink Generator</StyledTitle>
+            </Link>
+            <StyledNav>
+                <StyledLink href ="/">
                     Search
-                </Link>
-                <Link href="/random" className = {linkStyling}>
+                </StyledLink>
+                <StyledLink href="/random">
                     Random
-                </Link>
-                <Link href="/about" className = {linkStyling}>
+                </StyledLink>
+                <StyledLink href="/about">
                     About
-                </Link>
-            </nav>
-        </header>
+                </StyledLink>
+            </StyledNav>
+        </StyledHeader>
     );
 }

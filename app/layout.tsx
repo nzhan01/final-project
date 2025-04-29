@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${lora.variable} antialiased`}
       >
-      <Header/>
+        <Header/>
         {children}
       </body>
     </html>

@@ -48,7 +48,7 @@ export default function Cocktail(props:{data: CocktailType[]}){
             {
                 props.data.map((cocktail)=>(
                         <IndividualDiv key={cocktail.idDrink}>
-                            <StyledHeader>Drink Generator</StyledHeader>
+                            <StyledHeader>Generate a Drink!</StyledHeader>
                             <StyledHeader1>{cocktail.strDrink}</StyledHeader1>
                             <StyledP> <strong> Category:</strong> {cocktail.strCategory}</StyledP>
                             <StyledP> <strong> Alcoholic:</strong>  {cocktail.strAlcoholic}</StyledP>
