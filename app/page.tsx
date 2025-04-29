@@ -23,14 +23,17 @@ export default function SearchPage() {
       "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
     );
     const data = await response.json();
-    const drinks: Cocktail[] = data.drinks || [];
-
-    // Shuffle randomly
-    const shuffledDrinks = drinks.sort(() => 0.5 - Math.random());
-
+  
+    let drinks: Cocktail[] = Array.isArray(data.drinks) ? data.drinks : [];
+  
+    // Shuffle only if drinks is not empty
+    const shuffledDrinks = drinks.length > 0
+      ? [...drinks].sort(() => 0.5 - Math.random())
+      : [];
+  
     setAllDrinks(shuffledDrinks);
     setFilteredDrinks(shuffledDrinks);
-  }
+  }  
 
   function handleChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const nextQuery = ev.target.value;
