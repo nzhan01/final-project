@@ -3,6 +3,15 @@ import {useEffect, useState} from "react";
 import styled from "styled-components";
 
 
+{/* Author: Nicholas Zhang
+    Non-Alcoholic.tsx: Component used to fetch and display non-alcoholic beverages from the
+    CocktailDB.
+    This component is then imported into the page.tsx for the nonalcoholic route
+
+    */}
+
+//Styled Components!
+
 const StyledContainer = styled.div`
 
     display: flex;
@@ -56,6 +65,7 @@ const StyledDrinkList = styled.div`
 
 `
 
+//data type of the info returned by API call
 type cocktail = {
     idDrink: string;
     strDrink: string;
@@ -65,24 +75,31 @@ type cocktail = {
 
 
 export default function NonAlcoholic() {
+
+    //keep track of drink data
     const[data, setData] = useState<cocktail[]>([]);
 
+    //fetch data from API
     useEffect(()=> {
 
         async function fetchData(){
 
+            //API url
             const rawData = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic");
             const json = await rawData.json();
             setData(json.drinks);
             console.log("these are the drinks: " + data);
 
         }
+        //process data
         fetchData()
             .then(() => console.log("successfully fetched data"))
             .catch((e: Error)=> console.log("this was the error " +e));
     }, []);
 
 
+    // use data.map and slice to display the first 20 drinks returned
+    // displays the name and the corresponding image in a styled box
     return (
         <StyledContainer>
             <StyledTitle>Non-Alcoholic Drinks</StyledTitle>
