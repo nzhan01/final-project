@@ -1,3 +1,5 @@
+// Author: Mai Chu
+// app/page.tsx (Home)
 // This is the official home search page for filtering and 
 // displaying cocktails from the CocktailDB API. It has a 
 // search input, filtered results that's dynamic, styled layout, and "load more" button.
